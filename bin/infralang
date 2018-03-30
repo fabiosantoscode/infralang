@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+const result = require('../lib/cli')(process.argv.slice(2))
+
+if (result !== undefined) {
+    console.log(result)
+}

@@ -15,11 +15,19 @@ describe('parser', () => {
       parser.tokenise('(console.log "foo")'),
       ['(', 'console.log', [':string', 'foo'], ')']
     )
+    assert.deepEqual(
+      parser.tokenise('[1 2 {3 4}]'),
+      ['[', '1', '2', '{', 3, '4', '}', ']']
+    )
   })
   it('can parse', () => {
     assert.deepEqual(
       parser.parse('(foo 1 2 (list 3))'),
       ['do', ['foo', '1', '2', ['list', '3']]]
+    )
+    assert.deepEqual(
+      parser.parse('[1 2 {"foo" "bar"}]'),
+      ['do', [':array', 1, 2, [':object', [':string', 'foo'], [':string', 'bar']]]]
     )
   })
 })

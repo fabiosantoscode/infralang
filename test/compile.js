@@ -19,5 +19,13 @@ describe('compiler', () => {
       compile('(fn foo (n) 1)\n(foo 1)'),
       'function foo(n) { return 1 }\nfoo(1)\n'
     )
+    assert.equal(
+      compile('(set x [1 2 3])'),
+      'var x = [1, 2, 3]\n'
+    )
+    assert.equal(
+      compile('(set x {"foo" "bar"})'),
+      'var x = {"foo": "bar"}\n'
+    )
   })
 })
