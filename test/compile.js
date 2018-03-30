@@ -36,4 +36,10 @@ describe('compiler', () => {
       'var x = await {"foo": "bar"}\n'
     )
   })
+  it('compiles complex code', () => {
+    assert.equal(
+      compile(`(fn [] (console.log 1))`),
+      'async function () { ; return await console.log(1) }\n'
+    )
+  })
 })

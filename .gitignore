@@ -1,5 +1,4 @@
 assets/*
-lib/
 !assets/brightcove_placeholder.png
 !assets/swipe-left-gesture.svg
 !assets/the-economist-logo.svg
