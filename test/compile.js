@@ -39,6 +39,12 @@ await foo(1)\n`
       'var x = await {"foo": "bar"}\n'
     )
   })
+  it('compiles dependencies in the closure', () => {
+    assert.equal(
+      compile('(set q (queue "123"))\n(console.log (fn [msg] (q.send "hi")))'),
+      'var q = await $runtime.queue("123")\nawait console.log($runtime.dependencies(["var q = await $runtime.queue(\\"123\\")"], async function (msg) {\n  return await q.send("hi")\n}))\n'
+    )
+  })
   it('compiles complex code', () => {
     assert.equal(
       compile(`(fn [] (console.log 1))`),
