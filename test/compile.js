@@ -17,15 +17,18 @@ describe('compiler', () => {
     )
     assert.equal(
       compile('(fn foo (n) 1)\n(foo 1)'),
-      'async function foo(n) { n = await n; return 1 }\nawait foo(1)\n'
+      `async function foo(n) {
+  return 1
+}
+await foo(1)\n`
     )
     assert.equal(
       compile('(fn foo [n] 1)\n(foo 1)'),
-      'async function foo(n) { n = await n; return 1 }\nawait foo(1)\n'
+      'async function foo(n) {\n  return 1\n}\nawait foo(1)\n'
     )
     assert.equal(
       compile('(map (fn foo (n) 1))'),
-      'await map(async function foo(n) { n = await n; return 1 })\n'
+      'await map(async function foo(n) {\n  return 1\n})\n'
     )
     assert.equal(
       compile('(set x [1 2 3])'),
@@ -39,7 +42,10 @@ describe('compiler', () => {
   it('compiles complex code', () => {
     assert.equal(
       compile(`(fn [] (console.log 1))`),
-      'async function () { ; return await console.log(1) }\n'
+      'async function () {\n  return await console.log(1)\n}\n'
     )
+  })
+  it('ignores comments', () => {
+    
   })
 })

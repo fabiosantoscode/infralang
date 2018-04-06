@@ -11,7 +11,7 @@ describe('cli', () => {
   it('can compile code', () => {
     assert.equal(
       cli(['-c', '(+ 1 1)']),
-      '(async () => {\nreturn 1 + 1})()'
+      '(async () => {\n\n  return 1 + 1\n})().catch(error => { console.error(error) })'
     )
   })
 })
