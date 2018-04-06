@@ -1,6 +1,8 @@
 
 # infralang
 
+[![Build Status](https://travis-ci.org/fabiosantoscode/infralang.svg?branch=master)](https://travis-ci.org/fabiosantoscode/infralang)
+
 Create your code on AWS lambda in a single place!
 
 ## infralang -e
