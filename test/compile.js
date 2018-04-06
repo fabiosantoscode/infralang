@@ -45,7 +45,4 @@ await foo(1)\n`
       'async function () {\n  return await console.log(1)\n}\n'
     )
   })
-  it('ignores comments', () => {
-    
-  })
 })

@@ -3,7 +3,10 @@
 const result = require('../lib/cli')(process.argv.slice(2))
 
 if (result instanceof Promise) {
-  result.then(result => console.log(result), error => console.error(error))
-} else if (result !== undefined) {
+  result.then(
+    result => result != null && console.log(result),
+    error => console.error(error)
+  )
+} else if (result != null) {
   console.log(result)
 }

@@ -30,4 +30,10 @@ describe('parser', () => {
       ['do', [':array', 1, 2, [':object', [':string', 'foo'], [':string', 'bar']]]]
     )
   })
+  it('ignores comments', () => {
+    assert.deepEqual(
+      parser.parse('# foo bar\n(baz)'),
+      ['do', ['baz']]
+    )
+  })
 })
