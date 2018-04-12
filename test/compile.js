@@ -20,7 +20,8 @@ describe('compiler', () => {
       `async function foo(n) {
   return 1
 }
-await foo(1)\n`
+await foo(1)
+`
     )
     assert.equal(
       compile('(fn foo [n] 1)\n(foo 1)'),
@@ -42,7 +43,7 @@ await foo(1)\n`
   it('compiles dependencies in the closure', () => {
     assert.equal(
       compile('(set q (queue "123"))\n(console.log (fn [msg] (q.send "hi")))'),
-      'var q = await $runtime.queue("123")\nawait console.log($runtime.dependencies(["var q = await $runtime.queue(\\"123\\")"], async function (msg) {\n  return await q.send("hi")\n}))\n'
+      'var q = await require("infralang/lib/runtime").queue("123")\nawait console.log(require("infralang/lib/runtime").dependencies(["var q = await require(\\"infralang/lib/runtime\\").queue(\\"123\\")"], async function (msg) {\n  return await q.send("hi")\n}))\n'
     )
   })
   it('compiles complex code', () => {
