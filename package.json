@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "mocha",
-    "precommit": "standard-format -w lib/*.js"
+    "precommit": "standard-format -w lib/*.js && npm t"
   },
   "author": "",
   "license": "ISC",

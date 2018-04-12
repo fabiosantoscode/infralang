@@ -19,6 +19,10 @@ describe('parser', () => {
       parser.tokenise('[1 2 {3 4}]'),
       ['[', '1', '2', '{', 3, '4', '}', ']']
     )
+    assert.deepEqual(
+      parser.tokenise('"hello \\"world\\""'),
+      [[':string', 'hello "world"']]
+    )
   })
   it('can parse', () => {
     assert.deepEqual(

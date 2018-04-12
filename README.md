@@ -25,3 +25,31 @@ Create your code on AWS lambda in a single place!
 })().catch(error => { console.error(error) })
 ```
 
+## (set variableName value)
+
+```lisp
+(set variablename (sns "sns-topic"))
+```
+
+## (loop [name value name2 value2] (recur))
+
+```lisp
+(set list [1 2 3])
+
+(loop [l list]
+    (console.log l)
+    (if l.length
+        (recur (l.slice 1))))
+```
+
+## (fn [arg1 arg2 ...] code...)
+
+```lisp
+(fn [msg] onMessage
+    (notif.publish {hello: "world"}))
+
+(set notif (sns "sns-topic"))
+
+(notif.subscribe onMessage)
+```
+
