@@ -23,6 +23,10 @@ describe('parser', () => {
       parser.tokenise('"hello \\"world\\""'),
       [[':string', 'hello "world"']]
     )
+    assert.deepEqual(
+      parser.tokenise('/.p[]/g'),
+      [[':regex', '/.p[]/g']]
+    )
   })
   it('can parse', () => {
     assert.deepEqual(
@@ -32,6 +36,14 @@ describe('parser', () => {
     assert.deepEqual(
       parser.parse('[1 2 {"foo" "bar"}]'),
       ['do', [':array', 1, 2, [':object', [':string', 'foo'], [':string', 'bar']]]]
+    )
+    assert.deepEqual(
+      parser.parse('/ab.+c/'),
+      ['do', [':regex', '/ab.+c/']]
+    )
+    assert.deepEqual(
+      parser.parse('(+ 1 (- 2 (/ 3 (* 4 0))))'),
+      ['do', ['+', 1, ['-', 2, ['/', 3, ['*', 4, 0]]]]]
     )
   })
   it('ignores comments', () => {
