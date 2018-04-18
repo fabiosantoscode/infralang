@@ -53,3 +53,18 @@ Create your code on AWS lambda in a single place!
 (notif.subscribe onMessage)
 ```
 
+## (fetch "url")
+
+```lisp
+(fetch "http://www.example.com")
+```
+
+## lambda
+
+```lisp
+(set x (lambda "functionName" (fn [x]
+    (console.log "hello" x))))
+
+(x.call "param")
+```
+
