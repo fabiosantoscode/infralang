@@ -59,7 +59,7 @@ Create your code on AWS lambda in a single place!
 (fetch "http://www.example.com")
 ```
 
-## lambda
+## (lambda "name" (fn [] null))
 
 ```lisp
 (set x (lambda "functionName" (fn [x]
