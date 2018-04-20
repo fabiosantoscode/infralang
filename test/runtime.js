@@ -13,6 +13,21 @@ const proxyAws = {
     subscribe: sinon.spy(() => ({ promise: () => null })),
     publish: sinon.spy(() => ({ promise: () => null })),
     createTopic: sinon.spy((topic) => ({ promise: () => ({TopicArn: '123'})}))
+  },
+  Lambda: {
+    getFunction: sinon.spy(() => ({ promise: () => ({ Configuration: { FunctionArn: 'arn' }}) })),
+    createFunction: sinon.spy(() => ({ promise: () => null })),
+    updateFunctionCode: sinon.spy(() => ({ promise: () => null })),
+  },
+  APIGateway: {
+    getResources: sinon.spy(() => ({ promise: () => ({items: [{id: 'id', path: '/'}]}) })),
+    createResource: sinon.spy(() => ({ promise: () => ({ id: 'resource-id'}) })),
+    getRestApis: sinon.spy(() => ({ promise: () => ({items:[{name: 'http', id: 'api-id'}]}) })),
+    getMethod: sinon.spy(() => ({ promise: () => Promise.reject(null) })),
+    putMethod: sinon.spy(() => ({ promise: () => ({id:'method-id'}) })),
+    putIntegration: sinon.spy(() => ({ promise: () => ({id:'integration-id'}) })),
+    getDeployments: sinon.spy(() => ({ promise: () => Promise.resolve({items: [{description: 'infralang', id: 'deployment-id'}]}) })),
+    getStages: sinon.spy(() => ({ promise: () => Promise.resolve({item: [{stageName: 'infralang', id: 'stage-id'}]}) })),
   }
 }
 const runtime = proxyQuire('../lib/runtime', {
@@ -33,15 +48,21 @@ describe('runtime', () => {
   })
   it('interacts with Sns', async () => {
     const sns = await runtime.sns('test-s')
-    // await sns.subscribe(() => null)
+    await sns.subscribe(() => null)
     await sns.publish('hi')
 
     assert(proxyAws.SNS.publish.calledOnce)
 
-    0 && assert.deepEqual(proxyAws.SNS.subscribe.lastCall.args[0], {
+    assert.deepEqual(proxyAws.SNS.subscribe.lastCall.args[0], {
       Protocol: 'lambda',
       TopicArn: '123',
-      Endpoint: null
+      Endpoint: 'arn'
+    })
+  })
+  it('interacts with API Gateway', async () => {
+    const http = await runtime.http('http', 'foo')
+    await http.onRequest(() => {
+      console.log('foo')
     })
   })
 })
