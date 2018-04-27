@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "main": "lib/compile.js",
   "directories": {
-    "lib": "lib",
-    "test": "test"
+    "bin": "bin",
+    "lib": "lib"
+  },
+  "bin": {
+    "infralang": "bin/infralang"
   },
   "scripts": {
-    "test": "mocha --timeout 8000",
-    "lint": "standard-format -w lib/*.js test/*.js",
-    "precommit": "npm run lint && npm t"
+    "test": "blue-tape test",
+    "precommit": "npm t"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fabiosantoscode/uglify-es": "^3.6.0",
     "aws-api-gateway-client": "^0.2.12",
     "aws-sdk": "^2.218.1",
     "indent": "0.0.2",
@@ -22,11 +25,10 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
+    "blue-tape": "^1.0.0",
     "husky": "^0.14.3",
-    "mocha": "^5.0.5",
     "proxyquire": "^2.0.1",
-    "sinon": "^4.5.0",
-    "standard-format": "^2.2.4"
+    "sinon": "^4.5.0"
   },
   "description": ""
 }

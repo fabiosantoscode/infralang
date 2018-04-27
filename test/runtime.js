@@ -1,6 +1,6 @@
 'use strict'
 
-const assert = require('assert')
+const test = require('blue-tape')
 const sinon = require('sinon')
 const proxyQuire = require('proxyquire')
 const proxyAws = {
@@ -34,35 +34,36 @@ const runtime = proxyQuire('../lib/runtime', {
   './aws': proxyAws
 })
 
-describe('runtime', () => {
-  it('can create queues', async () => {
-    const q = await runtime.queue('test-q')
+test('runtime can create queues', async (t) => {
+  t.plan(2)
+  const q = await runtime.queue('test-q')
 
-    await q.send('hi')
+  await q.send('hi')
 
-    assert(proxyAws.SQS.createQueue.calledOnce)
-    assert.deepEqual(proxyAws.SQS.sendMessage.lastCall.args[0], {
-      MessageBody: 'hi',
-      QueueUrl: undefined
-    })
+  t.ok(proxyAws.SQS.createQueue.calledOnce)
+  t.deepEqual(proxyAws.SQS.sendMessage.lastCall.args[0], {
+    MessageBody: 'hi',
+    QueueUrl: undefined
   })
-  it('interacts with Sns', async () => {
-    const sns = await runtime.sns('test-s')
-    await sns.subscribe(() => null)
-    await sns.publish('hi')
+})
+test('runtime interacts with Sns', async (t) => {
+  t.plan(2)
+  const sns = await runtime.sns('test-s')
+  await sns.subscribe(() => null)
+  await sns.publish('hi')
 
-    assert(proxyAws.SNS.publish.calledOnce)
+  t.ok(proxyAws.SNS.publish.calledOnce)
 
-    assert.deepEqual(proxyAws.SNS.subscribe.lastCall.args[0], {
-      Protocol: 'lambda',
-      TopicArn: '123',
-      Endpoint: 'arn'
-    })
+  t.deepEqual(proxyAws.SNS.subscribe.lastCall.args[0], {
+    Protocol: 'lambda',
+    TopicArn: '123',
+    Endpoint: 'arn'
   })
-  it('interacts with API Gateway', async () => {
-    const http = await runtime.http('http', 'foo')
-    await http.onRequest(() => {
-      console.log('foo')
-    })
+})
+test('runtime interacts with API Gateway', async (t) => {
+  t.plan(0)
+  const http = await runtime.http('http', 'foo')
+  await http.onRequest(() => {
+    console.log('foo')
   })
 })
