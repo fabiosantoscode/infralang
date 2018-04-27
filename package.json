@@ -16,7 +16,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fabiosantoscode/uglify-es": "^3.6.0",
     "aws-api-gateway-client": "^0.2.12",
     "aws-sdk": "^2.218.1",
     "indent": "0.0.2",
@@ -29,8 +28,7 @@
     "blue-tape": "^1.0.0",
     "husky": "^0.14.3",
     "proxyquire": "^2.0.1",
-    "sinon": "^4.5.0",
-    "webpack-cli": "^2.0.15"
+    "sinon": "^4.5.0"
   },
   "description": ""
 }
