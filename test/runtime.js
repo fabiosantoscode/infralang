@@ -35,7 +35,6 @@ const runtime = proxyQuire('../lib/runtime', {
 })
 
 test('runtime can create queues', async (t) => {
-  t.plan(2)
   const q = await runtime.queue('test-q')
 
   await q.send('hi')
@@ -47,7 +46,6 @@ test('runtime can create queues', async (t) => {
   })
 })
 test('runtime interacts with Sns', async (t) => {
-  t.plan(2)
   const sns = await runtime.sns('test-s')
   await sns.subscribe(() => null)
   await sns.publish('hi')
@@ -61,7 +59,6 @@ test('runtime interacts with Sns', async (t) => {
   })
 })
 test('runtime interacts with API Gateway', async (t) => {
-  t.plan(0)
   const http = await runtime.http('http', 'foo')
   await http.onRequest(() => {
     console.log('foo')

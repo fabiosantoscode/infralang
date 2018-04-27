@@ -2,7 +2,6 @@ const test = require('blue-tape')
 const cli = require('../lib/cli')
 
 test('CLI can run code', async (t) => {
-  t.plan(1)
   t.equal(
     await cli([ '-e', '(+ 1 1)']),
     2
