@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "main": "lib/compile.js",
   "directories": {
-    "bin": "bin",
-    "lib": "lib"
-  },
-  "bin": {
-    "infralang": "bin/infralang"
+    "lib": "lib",
+    "test": "test"
   },
   "scripts": {
-    "test": "blue-tape test",
-    "precommit": "npm t"
+    "test": "mocha --timeout 8000",
+    "lint": "standard-format -w lib/*.js test/*.js",
+    "precommit": "npm run lint && npm t"
   },
   "author": "",
   "license": "ISC",
@@ -25,10 +23,11 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "blue-tape": "^1.0.0",
     "husky": "^0.14.3",
+    "mocha": "^5.0.5",
     "proxyquire": "^2.0.1",
-    "sinon": "^4.5.0"
+    "sinon": "^4.5.0",
+    "standard-format": "^2.2.4"
   },
   "description": ""
 }
