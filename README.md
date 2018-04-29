@@ -19,8 +19,6 @@ Create your code on AWS lambda in a single place!
 ```bash
 ♥  bin/infralang -c '(console.log (+ 2 4))'
 (async () => {
- const $runtime = require("/home/fabio/devel/infralang/lib/runtime")
-
  return await console.log(2 + 4)
 })().catch(error => { console.error(error) })
 ```
