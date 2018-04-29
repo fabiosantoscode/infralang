@@ -8,10 +8,7 @@ describe('cli', () => {
       2
     )
   })
-  it('can compile code', () => {
-    assert.equal(
-      cli(['-c', '(+ 1 1)']),
-      '(async () => {\n\n  return 1 + 1\n})().catch(error => { console.error(error) })'
-    )
+  it('can compile code', async () => {
+    assert((await cli(['-c', '(+ 1 1)'])).includes('return 1 + 1'))
   })
 })

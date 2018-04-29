@@ -1,12 +1,7 @@
 #!/usr/bin/env node
 
-const result = require('../lib/cli')(process.argv.slice(2))
+Promise.resolve(require('../lib/cli')(process.argv.slice(2))).then(
+  result => result != null && console.log(result),
+  error => console.error(error)
+)
 
-if (result instanceof Promise) {
-  result.then(
-    result => result != null && console.log(result),
-    error => console.error(error)
-  )
-} else if (result != null) {
-  console.log(result)
-}
