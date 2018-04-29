@@ -4,7 +4,7 @@ const sinon = require('sinon')
 
 describe('cli', () => {
   it('can run code', async () => {
-    sinon.spy(console, 'log')
+    sinon.stub(console, 'log')
     await cli([ '-e', '(+ 1 1)'])
     assert.equal(
       console.log.lastCall.args[0],
