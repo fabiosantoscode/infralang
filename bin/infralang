@@ -1,7 +1,4 @@
 #!/usr/bin/env node
 
-Promise.resolve(require('../lib/cli')(process.argv.slice(2))).then(
-  result => result != null && console.log(result),
-  error => console.error(error)
-)
+require('../lib/cli')(process.argv.slice(2))
 

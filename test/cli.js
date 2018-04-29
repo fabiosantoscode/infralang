@@ -1,12 +1,16 @@
 const assert = require('assert')
 const cli = require('../lib/cli')
+const sinon = require('sinon')
 
 describe('cli', () => {
   it('can run code', async () => {
+    sinon.spy(console, 'log')
+    await cli([ '-e', '(+ 1 1)'])
     assert.equal(
-      await cli([ '-e', '(+ 1 1)']),
+      console.log.lastCall.args[0],
       2
     )
+    console.log.restore()
   })
   it('can compile code', async () => {
     assert((await cli(['-c', '(+ 1 1)'])).includes('return 1 + 1'))
