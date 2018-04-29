@@ -12,6 +12,15 @@ describe('cli', () => {
     )
     console.log.restore()
   })
+  it('shows errors', async () => {
+    sinon.stub(console, 'error')
+    await cli([ '-e', '(throw "NO")'])
+    assert.equal(
+      console.error.lastCall.args[0],
+      'NO'
+    )
+    console.error.restore()
+  })
   it('can compile code', async () => {
     assert((await cli(['-c', '(+ 1 1)'])).includes('return 1 + 1'))
   })

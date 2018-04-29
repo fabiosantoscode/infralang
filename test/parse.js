@@ -45,6 +45,10 @@ describe('parser', () => {
       parser.parse('(+ 1 (- 2 (/ 3 (* 4 0))))'),
       ['do', ['+', 1, ['-', 2, ['/', 3, ['*', 4, 0]]]]]
     )
+    assert.deepEqual(
+      parser.parse('(throw "no")'),
+      ['do', ['throw', [':string', 'no']]]
+    )
   })
   it('ignores comments', () => {
     assert.deepEqual(
