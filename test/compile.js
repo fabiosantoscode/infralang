@@ -8,6 +8,10 @@ describe('compiler', () => {
       '1 + 1\n'
     )
     assert.equal(
+      await compile('(not 1)'),
+      '!(await 1)\n'
+    )
+    assert.equal(
       await compile('(set foo "foo")\n(console.log foo)'),
       'var foo = "foo"\nawait console.log(foo)\n'
     )
